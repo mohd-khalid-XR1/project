@@ -1,24 +1,17 @@
-import './App.css'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Signup from './pages/Signup'
+import Home from './pages/Home'
+import Login from './pages/Login'
 
-function Welcome() {
-  const name = 'Hamza'
-  const fruits = ['grapes', 'mango', 'apple']
-  const x = 939393
-  return <div>
-    <h1 className="title-heading">First react website</h1>
-    <h2>Rendering JSX</h2>
-    <p>My name is : {name} </p>
-    <p>{false ? 'True' : x + 4}</p>
-    <p>{true ? <u>True</u> : <i>false</i>}</p>
-    <hr />
-    <ul>
-      {fruits.map((fruit, index) => {
-        return <li>{fruit}</li>
-      })}
-    </ul>
-
-  </div>
+const App = () => {
+  return (
+   <Routes>
+    <Route path='/' element={<Home/>}/>
+    <Route path='/login' element={<Login/>}/>
+    <Route path='/signup' element={<Signup/>}/>
+   </Routes>
+  )
 }
 
-
-export default Welcome
+export default App
