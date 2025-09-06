@@ -1,0 +1,35 @@
+#sidebar {
+    height: 100dvh;
+    width: 20dvw;
+    background-color: rgb(52, 52, 255);
+    position: fixed;
+    top: 0px;
+    left: -20dvw;
+    opacity: 0.3;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    align-items: flex-start;
+    gap: 20px;
+    transition-property: left, background-Color, opacity;
+    /* transition-property: all; */
+    transition-duration: 0.7s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+
+}
+
+#sidebar li {
+    font-size: 18px;
+    font-family: cursive;
+    color: whitesmoke;
+    width: 100%;
+    padding: 3px 10px;
+    border: 5px solid black;
+
+}
+
+#sidebar li:hover {
+    background-color: rgb(4, 4, 203);
+
+}

@@ -1,0 +1,85 @@
+  nav {
+            /* border: 2px solid red; */
+            background-color: darkblue;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 10px 0px 10px;
+            height: 60px;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-container img {
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+        }
+
+        .logo-container h1 {
+            color: white;
+            font-size: 17px;
+            font-family: cursive;
+        }
+
+
+        .links {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .bell {
+            font-size: 20px;
+            position: relative;
+            /* border: 2px solid white; */
+        }
+
+        .bell span {
+            display: inline-block;
+            text-align: center;
+            font-size: 12px;
+            height: 13px;
+            width: 13px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            right: 2px;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .nav-btn button {
+            padding: 6px 8px;
+            border-radius: 15px 0px 15px 0px;
+            border: none;
+            cursor: pointer;
+            background-color: beige;
+        }
+
+        .nav-btn button:hover {
+            background-color: green;
+            color: white;
+        }
