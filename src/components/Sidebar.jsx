@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Sidebar.css'
-const Sidebar = () => {
+import { ImCross } from "react-icons/im";
+const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
+
     return (
-        <section id="sidebar">
+        <section id="sidebar" className={`${isSidebarActive ? "active" : ""} py-3`}>
+            <div className='px-3'>
+                <ImCross onClick={() => setIsSidebarActive((prev) => !prev)} />
+            </div>
             <li>Home</li>
             <li>Gallery</li>
             <li>About</li>

@@ -1,8 +1,10 @@
 import React from 'react'
-
+import { useSelector } from 'react-redux'
 const Home = () => {
+  const userData = useSelector((state) => state.authSlice)
+  console.log(userData);
   return (
-    <h1>fsdsd</h1>
+    <h1>Home </h1>
   )
 }
 

@@ -1,9 +1,15 @@
 import React from 'react'
 import { firebaseAuth } from '../firebase/Configuration'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { signup as signupReducer } from '../redux/features/authSlice'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
+  const navigation = useNavigate()
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state.authSlice)
+  console.log(userData);
 
   const signup = async (e) => {
     e.preventDefault()
@@ -11,21 +17,23 @@ const Signup = () => {
     const username = formData.get("username")
     const email = formData.get("email")
     const password = formData.get("password")
-    console.log(username);
-    console.log(email);
-    console.log(password);
+    // console.log(username);
+    // console.log(email);
+    // console.log(password);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password,
-      )
-      const user = userCredential.user 
-      await updateProfile(user,{
-        displayName : username
-      })
-
-      console.log(user);
+      // const userCredential = await createUserWithEmailAndPassword(
+      //   firebaseAuth,
+      //   email,
+      //   password,
+      // )
+      // const user = userCredential.user
+      // await updateProfile(user, {
+      //   displayName: username
+      // })
+      console.log("user created");
+      dispatch(signupReducer({ username: username, email, password }))
+      navigation('/')
+      // console.log(user);
     } catch (error) {
       console.log(error?.message)
     }
@@ -52,8 +60,8 @@ const Signup = () => {
           </div>
           <input type="password" name="password" id="" />
         </div>
-        <button type="submit">Login</button>
-        <p>Not a Member ? <a href="">Signup</a></p>
+        <button type="submit">Signup</button>
+        <p>Not a Member ? <Link to={'/login'}>Login</Link></p>
       </form>
     </div>
   )

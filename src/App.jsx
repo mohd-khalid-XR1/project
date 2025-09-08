@@ -4,17 +4,18 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
+
 
 const App = () => {
   // console.log();
   return (
     <>
-      <Sidebar />
+
       <Routes>
 
-        <Route element={<Navbar />}>
-          <Route path='/' element={<Home />} />
+        <Route path='/' element={<Navbar />}>
+          <Route index element={<Home />} />
+
         </Route>
 
         <Route path='/login' element={<Login />} />
