@@ -21,19 +21,26 @@ const Signup = () => {
     // console.log(email);
     // console.log(password);
     try {
-      // const userCredential = await createUserWithEmailAndPassword(
-      //   firebaseAuth,
-      //   email,
-      //   password,
-      // )
-      // const user = userCredential.user
+      const userCredential = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password,
+      )
+      // let user = userCredential.user
       // await updateProfile(user, {
       //   displayName: username
       // })
-      console.log("user created");
-      dispatch(signupReducer({ username: username, email, password }))
+      // user = {
+      //   uid: user.uid,
+      //   username: user.displayName,
+      //   email: user.email,
+      //   isVerified: user.emailVerified,
+      //   createdAt: user.metadata.creationTime,
+      //   photoURL : user.photoURL
+
+      // }
+      // dispatch(signupReducer({ user }))
       navigation('/')
-      // console.log(user);
     } catch (error) {
       console.log(error?.message)
     }

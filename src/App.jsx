@@ -4,15 +4,13 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
-
+import AuthProvider from './Provider/AuthProvider'
 
 const App = () => {
   // console.log();
   return (
-    <>
-
+    <AuthProvider>
       <Routes>
-
         <Route path='/' element={<Navbar />}>
           <Route index element={<Home />} />
 
@@ -21,7 +19,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
-    </>
+    </AuthProvider>
 
   )
 }
