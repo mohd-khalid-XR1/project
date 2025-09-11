@@ -5,11 +5,11 @@ import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '../firebase/Configuration';
 import { useDispatch } from 'react-redux';
 import { logoutReducer } from '../redux/features/authSlice';
-
+import { Link } from 'react-router-dom';
 const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
 
     const dispatch = useDispatch();
-
+    
     const signOutUser = async()=>{
         try {
             await signOut(firebaseAuth)
@@ -25,7 +25,7 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
             <div className='px-3'>
                 <ImCross onClick={() => setIsSidebarActive((prev) => !prev)} />
             </div>
-            <li>Home</li>
+            <Link to={'/profile'}><li>My Profile</li></Link>
             <li>Gallery</li>
             <li>About</li>
             <li onClick={signOutUser}>Logout</li>

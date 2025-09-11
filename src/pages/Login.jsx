@@ -50,7 +50,7 @@ const Login = () => {
                 <div>
                     <div className="password-label">
                         <label htmlFor="">Password</label>
-                        <span>Forgot Password ? </span>
+                        <Link to={`/forgot-password`}>Forgot Password ? </Link>
                     </div>
                     <input type="password" name="password" id="" />
                 </div>

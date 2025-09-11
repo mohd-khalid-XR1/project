@@ -14,10 +14,12 @@ const Navbar = () => {
         <>
             <header>
                 <nav>
-                    <div className="logo-container">
-                        <img src="./activa h smart.jpg" alt="activa" />
-                        <h1>My website</h1>
-                    </div>
+                    <Link to={'/'}>
+                        <div className="logo-container">
+                            <img src="./activa h smart.jpg" alt="activa" />
+                            <h1>My website</h1>
+                        </div>
+                    </Link>
 
                     <div className="links">
                         <a href="">About</a>

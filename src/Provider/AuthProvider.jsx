@@ -10,18 +10,20 @@ const AuthProvider = (props) => {
         try {
             await onAuthStateChanged(firebaseAuth, (user) => {
                 console.log("user login");
+                console.log(user);
                 if (user) {
                     let currentUser = {
                         uid: user.uid,
                         username: user.displayName,
-                        email: user.email,
+                        email: user.email, 
                         isVerified: user.emailVerified,
                         createdAt: user.metadata.creationTime,
                         photoURL: user.photoURL
                     }
+                    console.log(currentUser);
                     dispatch(signup({ user: currentUser }))
                 }else{
-                    alert("You are not login")
+                    // alert("You are not login")
                 }
 
             })

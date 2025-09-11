@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import AuthProvider from './Provider/AuthProvider'
+import ForgotPassword from './pages/ForgotPassword'
+import Profile from './pages/Profile'
 
 const App = () => {
   // console.log();
@@ -13,9 +15,9 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Navbar />}>
           <Route index element={<Home />} />
-
+          <Route path='profile' element={<Profile/>}/>
         </Route>
-
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>

@@ -26,10 +26,10 @@ const Signup = () => {
         email,
         password,
       )
-      // let user = userCredential.user
-      // await updateProfile(user, {
-      //   displayName: username
-      // })
+      let user = userCredential.user
+      await updateProfile(user, {
+        displayName: username
+      })
       // user = {
       //   uid: user.uid,
       //   username: user.displayName,
@@ -63,7 +63,7 @@ const Signup = () => {
         <div>
           <div className="password-label">
             <label htmlFor="">Password</label>
-            <span>Forgot Password ? </span>
+           <Link to={`/forgot-password`}>Forgot Password ? </Link>
           </div>
           <input type="password" name="password" id="" />
         </div>
