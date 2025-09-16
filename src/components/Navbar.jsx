@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const isAuthenticated = useSelector((state) => state.authSlice.isAuthenticated)
-    console.log(isAuthenticated);
+    // console.log(isAuthenticated);
     const [isSidebarActive, setIsSidebarActive] = useState(false)
     return (
         <>

@@ -26,7 +26,7 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
                 <ImCross onClick={() => setIsSidebarActive((prev) => !prev)} />
             </div>
             <Link to={'/profile'}><li>My Profile</li></Link>
-            <li>Gallery</li>
+            <Link to={'/create-post'}><li>Create Post</li></Link>
             <li>About</li>
             <li onClick={signOutUser}>Logout</li>
         </section>
