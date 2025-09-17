@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
 
     const dispatch = useDispatch();
-    
-    const signOutUser = async()=>{
+
+    const signOutUser = async () => {
         try {
             await signOut(firebaseAuth)
             dispatch(logoutReducer())
@@ -23,12 +23,22 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
     return (
         <section id="sidebar" className={`${isSidebarActive ? "active" : ""} py-3`}>
             <div className='px-3'>
-                <ImCross onClick={() => setIsSidebarActive((prev) => !prev)} />
+                <ImCross onClick={() => setIsSidebarActive((prev) => false)} />
             </div>
-            <Link to={'/profile'}><li>My Profile</li></Link>
-            <Link to={'/create-post'}><li>Create Post</li></Link>
+            <Link
+                to={'/profile'}
+                onClick={() => setIsSidebarActive(false)}
+            ><li>My Profile</li>
+            </Link>
+            <Link
+                to={'/create-post'}
+                onClick={() => setIsSidebarActive(false)}
+            ><li>Create Post</li></Link>
             <li>About</li>
-            <li onClick={signOutUser}>Logout</li>
+            <li onClick={() => {
+                setIsSidebarActive(false)
+                signOut()
+            }}>Logout</li>
         </section>
     )
 }

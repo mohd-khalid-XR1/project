@@ -8,6 +8,7 @@ import AuthProvider from './Provider/AuthProvider'
 import ForgotPassword from './pages/ForgotPassword'
 import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
+import ViewPost from './pages/ViewPost'
 
 const App = () => {
   // console.log();
@@ -18,6 +19,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path='profile' element={<Profile />} />
           <Route path='create-post' element={<CreatePost />} />
+          <Route path='view-post/:id' element={<ViewPost />} />
         </Route>
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/login' element={<Login />} />

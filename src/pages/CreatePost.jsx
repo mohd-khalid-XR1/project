@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { fireStoreDB } from '../firebase/Configuration'
 import { collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore'
 import { useSelector } from 'react-redux'
 import { collectionNames } from '../constant'
+import JoditEditor from 'jodit-react';
+
+const config = {
+    readonly: false,
+    placeholder : "Enter your content in my app"
+}
+
 
 const CreatePost = () => {
 
     const userData = useSelector((state) => state.authSlice.userData)
     console.log(userData);
+    const [content, setContent] = useState('')
 
     const submit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
         const title = formData.get("title")
-        const content = formData.get("content")
+        // const content = formData.get("content")
         const image = formData.get("image")
         let isPublished = formData.get("isPublished")
         isPublished = isPublished === 'public' ? true : false
-        console.log(isPublished);
+        console.log(content);
 
         try {
             const response = await addDoc(collection(fireStoreDB, collectionNames.posts), {
@@ -59,7 +67,13 @@ const CreatePost = () => {
             <form onSubmit={submit} className='flex flex-col gap-5 items-center'>
                 <input type="text" name='title' className='border' />
                 <input type="file" name="image" id="" className='border' />
-                <textarea name="content" id="" className='border' ></textarea>
+                <JoditEditor
+                    config={config}
+                    name='content'
+                    onChange={(newContent) => {
+                        setContent(newContent)
+                    }}
+                />
                 <div>
                     <h3>IsPublished</h3>
                     <label htmlFor="">public</label>
