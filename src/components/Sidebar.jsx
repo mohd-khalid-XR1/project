@@ -37,7 +37,7 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
             <li>About</li>
             <li onClick={() => {
                 setIsSidebarActive(false)
-                signOut()
+                signOutUser()
             }}>Logout</li>
         </section>
     )

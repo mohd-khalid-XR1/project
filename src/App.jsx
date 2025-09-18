@@ -9,11 +9,12 @@ import ForgotPassword from './pages/ForgotPassword'
 import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
 import ViewPost from './pages/ViewPost'
-
+import Popup from './components/Popup'
 const App = () => {
   // console.log();
   return (
     <AuthProvider>
+      <Popup />
       <Routes>
         <Route path='/' element={<Navbar />}>
           <Route index element={<Home />} />

@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { signup } from '../redux/features/authSlice'
 import { useNavigate } from 'react-router-dom'
+import { popupFailedReducer } from '../redux/features/booleanSlice'
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -35,7 +36,12 @@ const Login = () => {
             navigate('/')
         } catch (error) {
             console.log(error?.message);
-            alert("invalid user")
+            dispatch(popupFailedReducer({
+                popupState : {
+                    success : false,
+                    message : "Invalid user"
+                }
+            }))
         }
     }
     return (

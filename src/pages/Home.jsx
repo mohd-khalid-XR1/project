@@ -4,10 +4,11 @@ import { fireStoreDB } from '../firebase/Configuration';
 import { collectionNames } from '../constant';
 
 import PostCard from '../components/PostCard';
+import Popup from '../components/Popup';
 const Home = () => {
 
   const [posts, setPosts] = useState([])
-  console.log(posts);
+
   const getPosts = async () => {
     try {
       const response = await getDocs(collection(fireStoreDB, collectionNames.posts))
@@ -27,6 +28,7 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
+      
       <br />
       <div className='flex flex-col justify-start gap-3.5'>
         {posts.map((post) => {

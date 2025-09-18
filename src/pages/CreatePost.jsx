@@ -4,7 +4,8 @@ import { collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore'
 import { useSelector } from 'react-redux'
 import { collectionNames } from '../constant'
 import JoditEditor from 'jodit-react';
-
+import { useDispatch } from 'react-redux'
+import { popupSuccessReducer } from '../redux/features/booleanSlice'
 const config = {
     readonly: false,
     placeholder : "Enter your content in my app"
@@ -12,9 +13,8 @@ const config = {
 
 
 const CreatePost = () => {
-
+    const dispatch = useDispatch()
     const userData = useSelector((state) => state.authSlice.userData)
-    console.log(userData);
     const [content, setContent] = useState('')
 
     const submit = async (e) => {
@@ -49,6 +49,10 @@ const CreatePost = () => {
 
             if (document.exists()) {
                 console.log(document.data());
+                dispatch(popupSuccessReducer({popupState : {
+                    success : true,
+                    message : 'Post Created'
+                }}))
             } else {
                 console.log("there is no found");
             }
