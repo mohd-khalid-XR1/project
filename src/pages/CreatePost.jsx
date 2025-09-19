@@ -5,14 +5,18 @@ import { useSelector } from 'react-redux'
 import { collectionNames } from '../constant'
 import JoditEditor from 'jodit-react';
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { popupSuccessReducer } from '../redux/features/booleanSlice'
 const config = {
     readonly: false,
-    placeholder : "Enter your content in my app"
+    placeholder: "Enter your content in my app"
 }
 
 
-const CreatePost = () => {
+const CreatePost = ({ isUpdate }) => {
+    console.log(isUpdate);
+    const { id } = useParams()
+    console.log(id);
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.authSlice.userData)
     const [content, setContent] = useState('')
@@ -49,10 +53,12 @@ const CreatePost = () => {
 
             if (document.exists()) {
                 console.log(document.data());
-                dispatch(popupSuccessReducer({popupState : {
-                    success : true,
-                    message : 'Post Created'
-                }}))
+                dispatch(popupSuccessReducer({
+                    popupState: {
+                        success: true,
+                        message: 'Post Created'
+                    }
+                }))
             } else {
                 console.log("there is no found");
             }

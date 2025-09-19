@@ -19,7 +19,8 @@ const App = () => {
         <Route path='/' element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path='profile' element={<Profile />} />
-          <Route path='create-post' element={<CreatePost />} />
+          <Route path='create-post' element={<CreatePost isUpdate={false} />} />
+          <Route path='update-post/:id' element={<CreatePost isUpdate={true} />} />
           <Route path='view-post/:id' element={<ViewPost />} />
         </Route>
         <Route path='/forgot-password' element={<ForgotPassword />} />

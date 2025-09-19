@@ -54,18 +54,18 @@ const Signup = () => {
         <h2>Signup</h2>
         <div>
           <label htmlFor="">Username</label>
-          <input type="text" name="username" id="" />
+          <input type="text" name="username" id="" className='border' />
         </div>
         <div>
           <label htmlFor="">Email</label>
-          <input type="email" name="email" id="" />
+          <input type="email" name="email" id="" className='border'  />
         </div>
         <div>
           <div className="password-label">
             <label htmlFor="">Password</label>
            <Link to={`/forgot-password`}>Forgot Password ? </Link>
           </div>
-          <input type="password" name="password" id="" />
+          <input type="password" name="password" id="" className='border'  />
         </div>
         <button type="submit">Signup</button>
         <p>Not a Member ? <Link to={'/login'}>Login</Link></p>
