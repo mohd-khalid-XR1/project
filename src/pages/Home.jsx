@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { popupFailedReducer } from '../redux/features/booleanSlice';
 
 const Home = () => {
+  console.log(window.innerWidth);
   const dispatch = useDispatch()
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -59,7 +60,7 @@ const Home = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-start gap-3.5'>
+      <div className='w-full flex flex-col xl:flex-row lg:flex-row md:flex-row items-center justify-around mt-5 gap-3.5 flex-wrap'>
         {posts.map((post) => {
           return <PostCard key={post.id} post={post} />
         })}

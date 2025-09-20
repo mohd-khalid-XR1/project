@@ -10,7 +10,7 @@ import { popupFailedReducer, popupSuccessReducer } from '../redux/features/boole
 import { MdModeEditOutline } from "react-icons/md";
 
 const ViewPost = () => {
-
+    // console.log(process.env.NODE_ENV)
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -18,9 +18,9 @@ const ViewPost = () => {
     const userData = useSelector((state) => state.authSlice.userData)
 
     const [post, setPost] = useState(null)
-    console.log(post);
+  
     const isEligibleToDeletePost = post && isAuthenticated && (post.author.uid === userData.uid)
-    console.log(isAuthenticated);
+  
 
     const getPost = async (postId) => {
         try {
@@ -28,7 +28,7 @@ const ViewPost = () => {
             // console.log(ref);
             const document = await getDoc(docRef)
             if (document.exists()) {
-                console.log(document.data());
+                // console.log(document.data());
                 setPost(document.data())
             } else {
                 console.log("Document not get");

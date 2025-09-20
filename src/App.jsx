@@ -7,7 +7,7 @@ import Navbar from './components/Navbar'
 import AuthProvider from './Provider/AuthProvider'
 import ForgotPassword from './pages/ForgotPassword'
 import Profile from './pages/Profile'
-import CreatePost from './pages/CreatePost'
+import CreatePost from './pages/CreatePost' 
 import ViewPost from './pages/ViewPost'
 import Popup from './components/Popup'
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Popup />
-      <Routes>
+      <Routes> 
         <Route path='/' element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path='profile' element={<Profile />} />
