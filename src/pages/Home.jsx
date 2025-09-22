@@ -65,7 +65,7 @@ const Home = () => {
           return <PostCard key={post.id} post={post} />
         })}
       </div>
-    </>
+    </> 
   )
 }
 

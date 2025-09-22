@@ -5,9 +5,8 @@ import { useSelector } from 'react-redux'
 import { collectionNames } from '../constant'
 import JoditEditor from 'jodit-react';
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { getPost } from '../lib/posts'
-
+import { useParams, useNavigate } from 'react-router-dom'
+import { getPost, updatePost } from '../lib/posts'
 import { popupFailedReducer, popupSuccessReducer } from '../redux/features/booleanSlice'
 const config = {
     readonly: false,
@@ -19,25 +18,38 @@ const CreatePost = ({ isUpdate }) => {
 
     const { id } = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const userData = useSelector((state) => state.authSlice.userData)
     const [content, setContent] = useState('')
-    const [post, setPost] = useState(null)
-    console.log(post?.title);
-    const [title, setTitle] = useState(post?.title)
-    console.log(title);
-    
+    const [title, setTitle] = useState('')
+    const [isPublished, setIsPublished] = useState(null)
+    console.log(isPublished);
 
     const submit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
         const title = formData.get("title")
-        // const content = formData.get("content")
+        const content = formData.get("content")
         const image = formData.get("image")
         let isPublished = formData.get("isPublished")
         isPublished = isPublished === 'public' ? true : false
-        console.log(content);
-        if (isUpdate) {
 
+        if (isUpdate) {
+            // console.log(title);
+            // console.log(isPublished);
+            // console.log(content);
+            const response = await updatePost(id, {
+                title,
+                content,
+                isPublished,
+            })
+            dispatch(popupSuccessReducer({
+                popupState: {
+                    success: true,
+                    message: response.message
+                }
+            }))
+            navigate(`/view-post/${id}`)
         } else {
             try {
                 const response = await addDoc(collection(fireStoreDB, collectionNames.posts), {
@@ -87,7 +99,9 @@ const CreatePost = ({ isUpdate }) => {
         const data = await getPost(id)
 
         if (data.success) {
-            setPost(data.payload)
+            setTitle(data.payload.title)
+            setContent(data.payload.content)
+            setIsPublished(data.payload.isPublished ? "public" : "private")
         } else {
             setPost(null)
             dispatch(popupFailedReducer({
@@ -113,25 +127,39 @@ const CreatePost = ({ isUpdate }) => {
                     type="text"
                     name='title'
                     className='border'
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    // value={title}
+                    defaultValue={title}
+                // onChange={(e) => setTitle(e.target.value)}
                 />
                 <input type="file" name="image" id="" className='border' />
                 <JoditEditor
-                    value={post?.content}
+                    value={content}
                     config={config}
                     name='content'
-                    onChange={(newContent) => {
-                        setContent(newContent)
-                    }}
+                // onChange={(newContent) => {
+                //     setContent(newContent)
+                // }}
                 />
                 <div>
                     <h3>IsPublished</h3>
-                    <label htmlFor="">public</label>
-                    <input onChange={()=>{}} type="radio" name="isPublished" id="" value={'public'} checked={post?.isPublished} />
+                    {isUpdate ?
+                        isPublished && <>
+                            <label htmlFor="">public</label>
+                            <input onChange={() => { }} type="radio" name="isPublished" id="" value={'public'} defaultChecked={isPublished === "public"} />
 
-                    <label htmlFor="">Private</label>
-                    <input onChange={()=>{}} type="radio" name="isPublished" id="" value={'private'} checked={post?.isPublished === false} />
+                            <label htmlFor="">Private</label>
+                            <input onChange={() => { }} type="radio" name="isPublished" id="" value={'private'} defaultChecked={isPublished === "private"} />
+                        </>
+                        :
+                        <>
+                            <label htmlFor="">public</label>
+                            <input onChange={() => { }} type="radio" name="isPublished" id="" value={'public'} defaultChecked={true} />
+
+                            <label htmlFor="">Private</label>
+                            <input onChange={() => { }} type="radio" name="isPublished" id="" value={'private'} />
+                        </>
+                    }
+
                 </div>
                 <button type="submit" className='border bg-blue-500'>{isUpdate ? "Update Post" : "Create Post"}</button>
             </form>

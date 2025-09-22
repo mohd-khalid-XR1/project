@@ -4,6 +4,9 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useSelector, useDispatch } from 'react-redux'
 import { signup as signupReducer } from '../redux/features/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
+import { setDoc , doc} from 'firebase/firestore'
+import { fireStoreDB } from '../firebase/Configuration'
+import { collectionNames } from '../constant'
 
 const Signup = () => {
   const navigation = useNavigate()
@@ -26,10 +29,19 @@ const Signup = () => {
         email,
         password,
       )
+
       let user = userCredential.user
       await updateProfile(user, {
         displayName: username
       })
+
+      const x = await setDoc(doc(fireStoreDB,collectionNames.profile,user.uid),{
+        username : user.displayName,
+        heartPostId : []
+      })
+
+      console.log(x);
+
       // user = {
       //   uid: user.uid,
       //   username: user.displayName,
