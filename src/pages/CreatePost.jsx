@@ -22,10 +22,13 @@ const CreatePost = ({ isUpdate }) => {
     const userData = useSelector((state) => state.authSlice.userData)
     const [content, setContent] = useState('')
     const [title, setTitle] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [isPublished, setIsPublished] = useState(null)
-    console.log(isPublished);
 
     const submit = async (e) => {
+        
+        console.log('click');
+        setIsSubmitting(true)
         e.preventDefault()
         const formData = new FormData(e.target)
         const title = formData.get("title")
@@ -34,24 +37,26 @@ const CreatePost = ({ isUpdate }) => {
         let isPublished = formData.get("isPublished")
         isPublished = isPublished === 'public' ? true : false
 
-        if (isUpdate) {
-            // console.log(title);
-            // console.log(isPublished);
-            // console.log(content);
-            const response = await updatePost(id, {
-                title,
-                content,
-                isPublished,
-            })
-            dispatch(popupSuccessReducer({
-                popupState: {
-                    success: true,
-                    message: response.message
-                }
-            }))
-            navigate(`/view-post/${id}`)
-        } else {
-            try {
+        try {
+            if (isUpdate) {
+                // console.log(title);
+                // console.log(isPublished);
+                // console.log(content);
+                const response = await updatePost(id, {
+                    title,
+                    content,
+                    isPublished,
+                })
+                dispatch(popupSuccessReducer({
+                    popupState: {
+                        success: true,
+                        message: response.message
+                    }
+                }))
+                navigate(`/view-post/${id}`)
+            } else {
+
+                console.log(userData);
                 const response = await addDoc(collection(fireStoreDB, collectionNames.posts), {
                     author: {
                         username: userData.username,
@@ -72,21 +77,25 @@ const CreatePost = ({ isUpdate }) => {
                 const document = await getDoc(response)
 
                 if (document.exists()) {
-                    console.log(document.data());
+                    // console.log(document.data());
                     dispatch(popupSuccessReducer({
                         popupState: {
                             success: true,
                             message: 'Post Created'
                         }
                     }))
+                    navigate(`/view-post/${id}`)
                 } else {
                     console.log("there is no found");
                 }
 
-            } catch (error) {
-                console.log(error);
+
             }
+            setIsSubmitting(false)
+        } catch (error) {
+            setIsSubmitting(false)
         }
+
 
 
 
@@ -161,7 +170,7 @@ const CreatePost = ({ isUpdate }) => {
                     }
 
                 </div>
-                <button type="submit" className='border bg-blue-500'>{isUpdate ? "Update Post" : "Create Post"}</button>
+                <button disabled={isSubmitting} type="submit" className={`border  ${isSubmitting ? "bg-green-400" : "bg-blue-500"}`}>{isUpdate ? "Update Post" : "Create Post"}</button>
             </form>
         </>
     )

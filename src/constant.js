@@ -1,6 +1,6 @@
 export const collectionNames = {
     posts : "posts",
-    profile : "profileHHHH",
+    profile : "profile",
     comments : "comments"
 }
 

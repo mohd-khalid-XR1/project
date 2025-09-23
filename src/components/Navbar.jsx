@@ -7,8 +7,10 @@ import Sidebar from './Sidebar';
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+
     const isAuthenticated = useSelector((state) => state.authSlice.isAuthenticated)
-    // console.log(isAuthenticated);
+    const userData = useSelector((state)=>state.authSlice.userData)
+    // console.log(userData);
     const [isSidebarActive, setIsSidebarActive] = useState(false)
     return (
         <>

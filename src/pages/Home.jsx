@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { popupFailedReducer } from '../redux/features/booleanSlice';
 
 const Home = () => {
-  console.log(window.innerWidth);
+  // console.log(window.innerWidth);
   const dispatch = useDispatch()
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
