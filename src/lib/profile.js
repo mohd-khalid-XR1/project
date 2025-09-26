@@ -8,8 +8,9 @@ export const getProfile = async (id) => {
 
         const docRef = await doc(fireStoreDB, collectionNames.profile, id)
         const document = await getDoc(docRef)
+
         if (document.exists) {
-            return document.data()
+           return document.data()
         } else {
             return null
         }

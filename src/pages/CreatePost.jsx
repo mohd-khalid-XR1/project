@@ -12,6 +12,7 @@ const config = {
     readonly: false,
     placeholder: "Enter your content in my app"
 }
+import { supabase } from '../supabase/configuration'
 
 
 const CreatePost = ({ isUpdate }) => {
@@ -26,7 +27,7 @@ const CreatePost = ({ isUpdate }) => {
     const [isPublished, setIsPublished] = useState(null)
 
     const submit = async (e) => {
-        
+
         console.log('click');
         setIsSubmitting(true)
         e.preventDefault()
@@ -36,6 +37,9 @@ const CreatePost = ({ isUpdate }) => {
         const image = formData.get("image")
         let isPublished = formData.get("isPublished")
         isPublished = isPublished === 'public' ? true : false
+        // console.log(image);
+
+
 
         try {
             if (isUpdate) {
@@ -56,7 +60,17 @@ const CreatePost = ({ isUpdate }) => {
                 navigate(`/view-post/${id}`)
             } else {
 
-                console.log(userData);
+                const { data, error } = await supabase.storage.from("posts").upload(`${Date.now()}-${image.name}`, image)
+                console.log(data);
+                const path = data.path
+                if (error) throw new Error("Image is not uploaded")
+
+                const filePath = data.path
+                const { data: x } = supabase.storage.from("posts").getPublicUrl(filePath);
+                // console.log(x);
+                const publicURL = x.publicUrl
+                // console.log(publicURL);
+
                 const response = await addDoc(collection(fireStoreDB, collectionNames.posts), {
                     author: {
                         username: userData.username,
@@ -67,8 +81,8 @@ const CreatePost = ({ isUpdate }) => {
                     heart: 0,
                     createdAt: serverTimestamp(),
                     image: {
-                        secure_url: "",
-                        public_id: ""
+                        public_url: publicURL,
+                        path: path
                     },
                     isPublished: isPublished
                 })
