@@ -10,9 +10,10 @@ const PostCard = (props) => {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.authSlice.userData)
     const [isHearted, setIsHearted] = useState(null)
-    console.log(isHearted);
+    // console.log(isHearted);
     const myProfile = useSelector((state) => state.profileSlice.profileData)
-    const heartPostId = myProfile.heartPostId
+    // console.log(myProfile);
+    const heartPostId = myProfile?.heartPostId
     const { post } = props
     const heartPost = async () => {
         const id = post.id
@@ -72,18 +73,18 @@ const PostCard = (props) => {
             })
         }
     }
-    console.log(post);
+    // console.log(post);
 
     return (
         <div className='border border-gray-300 mb-2 w-[95%] xl:w-[30%] lg:w-[30%] md:w-[30%]'>
-            <img src={`${post.image.public_url}`} alt={post.title} />
+            <img src={`${post?.image?.public_url}`} alt={post?.title} />
             <Link to={`/view-post/${post.id}`} className='w-full'>
                 <span>{post.author.username}</span>
                 <h2 className='font-black'>{post.title}</h2>
                 {/* <article>{parse(post.content)}</article> */}
             </Link>
             <div className='flex gap-2 items-center cursor-pointer' onClick={heartPost}>
-                <FaHeart className={`${heartPostId.includes(post.id) ? "text-red-500" : "text-gray-400"}`} />
+                <FaHeart className={`${heartPostId?.includes(post.id) ? "text-red-500" : "text-gray-400"}`} />
                 <span>{post.heart}</span>
             </div>
         </div>

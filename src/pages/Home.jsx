@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, query, collection, where } from 'firebase/firestore';
 import { fireStoreDB } from '../firebase/Configuration';
 import { collectionNames } from '../constant';
 import PostCard from '../components/PostCard';
@@ -10,6 +10,7 @@ const Home = () => {
   // console.log(window.innerWidth);
   const dispatch = useDispatch()
   const [posts, setPosts] = useState([])
+  // console.log(posts);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -18,10 +19,16 @@ const Home = () => {
       setLoading(true)
       setError("")
       // throw new Error("network issue")
-      const response = await getDocs(collection(fireStoreDB, collectionNames.posts))
+      const q = query(
+        collection(fireStoreDB, collectionNames.posts),
+        where("isPublished", "==", true)
+
+      )
+      const response = await getDocs(q)
       const documents = response.docs.map((snapShot) => {
         return { ...snapShot.data(), id: snapShot.id }
       })
+      
       setPosts(documents)
       setLoading(false)
     } catch (error) {
@@ -29,9 +36,9 @@ const Home = () => {
       setError(error?.message)
       setLoading(false)
       dispatch(popupFailedReducer({
-        popupState : {
-          success : false,
-          message : `Something Went Wrong.`
+        popupState: {
+          success: false,
+          message: `Something Went Wrong.`
         }
       }))
     }
@@ -48,7 +55,7 @@ const Home = () => {
     )
   }
 
-  if(error){
+  if (error) {
     return <div className='text-center mt-10 font-bold'>{error}</div>
   }
 
@@ -65,7 +72,7 @@ const Home = () => {
           return <PostCard key={post.id} post={post} />
         })}
       </div>
-    </> 
+    </>
   )
 }
 

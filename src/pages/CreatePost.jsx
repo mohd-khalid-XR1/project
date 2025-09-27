@@ -49,7 +49,7 @@ const CreatePost = ({ isUpdate }) => {
                 const response = await updatePost(id, {
                     title,
                     content,
-                    isPublished,
+                    isPublished,  
                 })
                 dispatch(popupSuccessReducer({
                     popupState: {

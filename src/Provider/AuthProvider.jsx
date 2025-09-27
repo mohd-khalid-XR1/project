@@ -13,7 +13,7 @@ const AuthProvider = (props) => {
     const getCurrentUser = async () => {
         try {
             await onAuthStateChanged(firebaseAuth, async (user) => {
-                // console.log("user login");
+               
                 // console.log(user);
                 if (user) {
                     let currentUser = {
@@ -24,14 +24,15 @@ const AuthProvider = (props) => {
                         createdAt: user.metadata.creationTime,
                         photoURL: user.photoURL
                     }
-                    // console.log(currentUser);
+                    console.log(currentUser);
                     dispatch(signup({ user: currentUser }))
                     const profile = await getProfile(currentUser.uid)
+                    console.log(profile);
                     if (profile) {
                         dispatch(setProfileReducer({ profileData: profile }))
                     }
                 } else {
-                    // alert("You are not login")
+                    alert("You are not login")
                 }
 
             })

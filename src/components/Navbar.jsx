@@ -5,13 +5,21 @@ import { IoMenu } from "react-icons/io5";
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useSelector } from 'react-redux';
+import { FaHome } from "react-icons/fa";
+import { GoSearch } from "react-icons/go";
+import { MdCreate } from "react-icons/md";
 
 const Navbar = () => {
 
     const isAuthenticated = useSelector((state) => state.authSlice.isAuthenticated)
-    const userData = useSelector((state)=>state.authSlice.userData)
+    const userData = useSelector((state) => state.authSlice.userData)
     // console.log(userData);
     const [isSidebarActive, setIsSidebarActive] = useState(false)
+    const links = [
+        { name: "Home", path: "/", id: 1 , icon : <FaHome />},
+        { name: "Search", path: "/search", id: 2 , icon : <GoSearch /> },
+        { name: "create post", path: "/create-post", id: 3, icon : <MdCreate /> },
+    ]
     return (
         <>
             <header>
@@ -24,13 +32,10 @@ const Navbar = () => {
                     </Link>
 
                     <div className="links">
-                        <a href="">About</a>
-                        <a href="">Contact</a>
-                        <a href="">Create</a>
-                        <span className="bell">
-                            <span>2</span>
-                            🔔
-                        </span>
+                        {links.map((nav) => {
+                            return <Link to={nav.path} key={nav.id}>{nav.name} {nav.icon}</Link>
+                            
+                        })}
                     </div>
 
                     {isAuthenticated ?
